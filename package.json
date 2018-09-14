@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "clean": "rm -rf dist && rm -rf .cache && rm -rf build",
-    "build:demos": "parcel build --public-url '/vl-mapd-demo/' index.html",
+    "build:demos": "parcel build --public-url '/vega-lite-transforms2sql/' index.html",
     "deploy:demos": "npm run clean && npm run build:demos && gh-pages -d dist"
   },
   "devDependencies": {
