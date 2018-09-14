@@ -54,9 +54,10 @@ export class Transforms2SQL {
     }
     return `SELECT ${Array.from(components.select).join(", ")} 
 FROM ${table}${
-      components.where.length > 0 ? "\n WHERE " : ""
-    }${components.where.join(", ")}
-GROUP BY ${Array.from(components.group).join(", ")}`;
+      components.where.length > 0 ? "\nWHERE " : ""
+    }${components.where.join(", ")}${
+      components.group.size > 0 ? "\nGROUP BY " : ""
+    }${Array.from(components.group).join(", ")}`;
   }
 
   private static translate_op(op: string): string {

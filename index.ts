@@ -40,7 +40,11 @@ const vlBarchart: NormalizedUnitSpec = {
   title: "Number of Flights by Airline",
   mark: "bar",
   encoding: {
-    x: { field: "carrier_name", type: "ordinal", title: "Airline" },
+    x: {
+      field: "carrier_name",
+      type: "ordinal",
+      title: "Airline"
+    },
     y: { aggregate: "count", type: "quantitative", title: "Number of Flights" }
   }
 };
