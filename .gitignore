@@ -73,3 +73,5 @@ typings/
 .serverless
 
 .cache
+.vscode/tags
+dist
