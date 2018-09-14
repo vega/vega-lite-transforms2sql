@@ -1,0 +1,24 @@
+{
+  "name": "vl-mapd-demo",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "clean": "rm -rf dist && rm -rf .cache && rm -rf build",
+    "build:demos": "parcel build  index.html",
+    "deploy:demos": "npm run clean && npm run build:demos && gh-pages -d dist"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.9.7",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "@mapd/connector": "^4.0.1",
+    "gh-pages": "^1.2.0",
+    "vega-embed": "^3.20.0",
+    "vega-expression": "^2.3.1",
+    "vega-lite": "^3.0.0-rc6",
+    "vega-typings": "^0.3.45"
+  }
+}
