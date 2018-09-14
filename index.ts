@@ -95,7 +95,6 @@ function loadDemo(containerName: string, spec: NormalizedUnitSpec): void {
         Object.assign({ data: { values } }, modifiedSpec),
         { defaultStyle: true }
       );
-      console.log(values);
     });
   });
 }
