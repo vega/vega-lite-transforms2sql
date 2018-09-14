@@ -16,9 +16,9 @@ export class Transforms2SQL {
     transforms: Transform[]
   ): string {
     let components = {
-      select: Object.assign([], selections),
+      select: new Set(Object.assign([], selections)),
       where: [],
-      group: []
+      group: new Set()
     };
     for (const transform of transforms) {
       if (isFilter(transform)) {
@@ -34,25 +34,29 @@ export class Transforms2SQL {
         for (const aggregate of transform.aggregate) {
           const translated_op = this.translate_op(aggregate.op);
           if (aggregate.field !== undefined) {
-            components.select.push(
+            components.select.add(
               `${translated_op}(${aggregate.field}) AS ${aggregate.as}`
             );
           } else {
             // must be a counting operation
-            components.select.push(`${translated_op}(*) AS ${aggregate.as}`);
+            components.select.add(`${translated_op}(*) AS ${aggregate.as}`);
           }
         }
         if (transform.groupby !== undefined) {
-          components.group = components.group.concat(transform.groupby);
+          for (const group of transform.groupby) {
+            components.group.add(group);
+          }
         }
       }
     }
-    components.group = components.group.concat(selections);
-    return `SELECT ${components.select.join(", ")} 
+    for (const group of selections) {
+      components.group.add(group);
+    }
+    return `SELECT ${Array.from(components.select).join(", ")} 
 FROM ${table}${
       components.where.length > 0 ? "\n WHERE " : ""
     }${components.where.join(", ")}
-GROUP BY ${components.group.join(", ")}`;
+GROUP BY ${Array.from(components.group).join(", ")}`;
   }
 
   private static translate_op(op: string): string {
